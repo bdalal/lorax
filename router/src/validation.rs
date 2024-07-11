@@ -302,21 +302,24 @@ impl Validation {
             schema = Some(response_format_val.schema.to_string());
         } else if tools.is_some() {
             let tools_vec = tools.unwrap();
-            let functions_vec: Vec<serde_json::Value> = tools_vec.
-                iter().
-                filter(|t| matches!(t, Tool::Function{..})).
-                map(|t| {
+            let functions_vec: Vec<serde_json::Value> = tools_vec
+                .iter()
+                .filter(|t| matches!(t, Tool::Function { .. }))
+                .map(|t| {
                     let Tool::Function { function } = t;
                     function.to_schema()
-                }).
-                collect();
+                })
+                .collect();
 
-            schema = Some(json!({
-                "type": "array",
-                "items": {
-                    "oneOf": functions_vec,
-                },
-            }).to_string());
+            schema = Some(
+                json!({
+                    "type": "array",
+                    "items": {
+                        "oneOf": functions_vec,
+                    },
+                })
+                .to_string(),
+            );
 
             inputs.push_str(format!("\n---\nYou will be presented with a JSON schema representing a set of tools.\nJSON Schema:\n{}", schema.as_ref().unwrap()).as_str());
         }

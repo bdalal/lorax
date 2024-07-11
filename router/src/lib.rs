@@ -493,7 +493,7 @@ struct ResponseFormat {
 #[serde(tag = "type")]
 enum Tool {
     #[serde(alias = "function")]
-    Function{function: FunctionSpec},
+    Function { function: FunctionSpec },
 }
 
 #[derive(Clone, Debug, Deserialize, ToSchema)]
