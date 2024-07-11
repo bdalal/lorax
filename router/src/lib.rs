@@ -7,7 +7,6 @@ mod loader;
 mod queue;
 mod scheduler;
 pub mod server;
-mod tools;
 mod validation;
 use lorax_client::{
     AdapterParameters as AdapterParametersMessage, AlternativeTokens, Entity as EntityMessage,
